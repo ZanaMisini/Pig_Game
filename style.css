@@ -133,12 +133,19 @@ main {
   top: 4rem;
 }
 .btn--roll {
-  top: 39.3rem;
+  top: 35.3rem;
 }
 .btn--hold {
-  top: 46.1rem;
+  top: 41rem;
 }
+ .btn--addScore{
+  top: 53rem;
+ }
 
+ .btn--field{
+  top: 48.5rem;
+
+ }
 .btn:active {
   transform: translate(-50%, 3px);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
