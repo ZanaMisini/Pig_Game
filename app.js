@@ -63,6 +63,10 @@ document.querySelector('.btn--roll').addEventListener('click', () => {
             lastRoll2 = 0;
             dice2 = 0;
             nextPlayer();
+            setTimeout(() => {
+                document.getElementById('dice1').style.display = 'none';
+                document.getElementById('dice2').style.display = 'none';
+            }, 600);
         }else{
             document.getElementById('dice1').style.display = 'block';
             document.getElementById('dice2').style.display = 'block';
@@ -72,7 +76,11 @@ document.querySelector('.btn--roll').addEventListener('click', () => {
                 currentScore += dice1 + dice2;
                 document.getElementById('current--' + activePlayer).textContent = currentScore;
             }else if(dice1 === 1 || dice2 === 1){
-                nextPlayer();        
+                nextPlayer();
+                setTimeout(() => {
+                    document.getElementById('dice1').style.display = 'none';
+                    document.getElementById('dice2').style.display = 'none';
+                }, 600);   
             }
         }
     }
@@ -86,6 +94,8 @@ document.querySelector('.btn--hold').addEventListener('click', () => {
     dice1 = 0;
     lastRoll2 = 0;
     dice2 = 0;
+    document.getElementById('dice1').style.display = 'none';
+    document.getElementById('dice2').style.display = 'none';
     if(scores[activePlayer] >= maxScore){
         document.getElementById('name--' + activePlayer).textContent = "Winner!";
         document.querySelector('.player--' + activePlayer).classList.add('player--winner');
