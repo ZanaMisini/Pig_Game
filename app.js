@@ -70,8 +70,8 @@ document.querySelector('.btn--roll').addEventListener('click', () => {
         }else{
             document.getElementById('dice1').style.display = 'block';
             document.getElementById('dice2').style.display = 'block';
-            document.getElementById('dice1').src = 'dice-' + dice1 + '.png';
-            document.getElementById('dice2').src = 'dice-' + dice2 + '.png';
+            document.getElementById('dice1').src = 'images/dice-' + dice1 + '.png';
+            document.getElementById('dice2').src = 'images/dice-' + dice2 + '.png';
             if(dice1 !== 1 && dice2 !== 1){
                 currentScore += dice1 + dice2;
                 document.getElementById('current--' + activePlayer).textContent = currentScore;
