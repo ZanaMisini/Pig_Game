@@ -1,7 +1,5 @@
-var scores, currentScore, activePlayer, gamePlays, maxScore, lastRoll, dice;
+var scores, currentScore, activePlayer, gamePlays, maxScore, lastRoll1, lastRoll2, dice1, dice2;
 gamePlays = true;
-
-
 
 addManualScore = () => {
     document.querySelector('.btn--addScore').addEventListener('click', () => {
@@ -17,8 +15,10 @@ init = () => {
     scores = [0,0];
     currentScore = 0;
     activePlayer = 0;
-    lastRoll = 0;
-    dice = 0;
+    lastRoll1 = 0;
+    dice1 = 0;
+    lastRoll2 = 0;
+    dice2 = 0;
     maxScore = 30;
     document.getElementById('score--0').innerHTML = 0;
     document.getElementById('score--1').innerHTML = 0;
@@ -35,7 +35,8 @@ init = () => {
     document.getElementById('name--1').innerHTML = "Player 2";
 
 
-    document.querySelector('.dice').style.display = 'none';
+    document.getElementById('dice1').style.display = 'none';
+    document.getElementById('dice2').style.display = 'none';
     }
 }
 
@@ -45,22 +46,32 @@ document.querySelector('.btn--roll').addEventListener('click', () => {
     if(maxScore === 30){
         maxScoreFormat(maxScore);
     }
-    lastRoll = dice;
+    lastRoll1 = dice1;
+    lastRoll2 = dice2;
     if(gamePlays){
-        dice = Math.floor(Math.random() * 6) + 1;
-        if(dice === lastRoll && dice === 6 && lastRoll === 6){
+        dice1 = Math.floor(Math.random() * 6) + 1;
+        dice2 = Math.floor(Math.random() * 6) + 1;
+        condition = (dice1 === lastRoll1 && dice1 === 6 && lastRoll1 === 6) ||
+                    (dice2 === lastRoll2 && dice2 === 6 && lastRoll2 === 6) ||
+                    (dice1 === lastRoll2 && dice1 === 6 && lastRoll2 === 6) ||
+                    (dice2 === lastRoll1 && dice2 === 6 && lastRoll1 === 6)
+        if(condition){
             scores[activePlayer] = 0;
             document.getElementById('score--' + activePlayer).innerHTML = scores[activePlayer];
-            lastRoll = 0; dice = 0;
+            lastRoll1 = 0;
+            dice1 = 0;
+            lastRoll2 = 0;
+            dice2 = 0;
             nextPlayer();
         }else{
-            document.querySelector('.dice').style.display = 'block';
-            document.querySelector('.dice').src = 'dice-' + dice + '.png';
-            if(dice !== 1){
-                currentScore += dice;
-                lastScore = currentScore - dice;
+            document.getElementById('dice1').style.display = 'block';
+            document.getElementById('dice2').style.display = 'block';
+            document.getElementById('dice1').src = 'dice-' + dice1 + '.png';
+            document.getElementById('dice2').src = 'dice-' + dice2 + '.png';
+            if(dice1 !== 1 && dice2 !== 1){
+                currentScore += dice1 + dice2;
                 document.getElementById('current--' + activePlayer).textContent = currentScore;
-            }else{
+            }else if(dice1 === 1 || dice2 === 1){
                 nextPlayer();        
             }
         }
@@ -71,7 +82,10 @@ document.querySelector('.btn--hold').addEventListener('click', () => {
     if(gamePlays){
     scores[activePlayer] += currentScore;
     document.getElementById('score--' + activePlayer).innerHTML = scores[activePlayer];
-    lastRoll = 0; dice = 0;
+    lastRoll1 = 0;
+    dice1 = 0;
+    lastRoll2 = 0;
+    dice2 = 0;
     if(scores[activePlayer] >= maxScore){
         document.getElementById('name--' + activePlayer).textContent = "Winner!";
         document.querySelector('.player--' + activePlayer).classList.add('player--winner');
