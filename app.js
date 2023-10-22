@@ -1,20 +1,17 @@
 var scores, currentScore, activePlayer, gamePlays, maxScore, lastRoll, dice;
-maxScore = 0; gamePlays = true;
+gamePlays = true;
+
+
 
 addManualScore = () => {
     document.querySelector('.btn--addScore').addEventListener('click', () => {
         maxScore = document.getElementById('setMaxScore').value;
-        var text = "First to " + maxScore + ' wins!';
-        document.querySelector('.btn--field').style.display = 'none';
-        document.querySelector('.btn--addScore').style.display = 'none';
-        document.querySelectorAll('.btn--field')[1].style.display = 'block';
-        document.getElementById('paragraph').innerHTML = text;
+        maxScoreFormat(maxScore);
     })
 }
 init = () => {
     document.querySelectorAll('.btn--field')[1].style.display = 'none';
     addManualScore();
-    console.log(maxScore);
     gamePlays = true;
     if(gamePlays){
     scores = [0,0];
@@ -46,10 +43,7 @@ init();
 
 document.querySelector('.btn--roll').addEventListener('click', () => {
     if(maxScore === 30){
-        document.querySelectorAll('.btn--field')[1].style.display = 'block';
-        document.getElementById('paragraph').innerHTML = "First to 30 Wins";
-        document.querySelector('.btn--field').style.display = 'none';
-        document.querySelector('.btn--addScore').style.display = 'none';
+        maxScoreFormat(maxScore);
     }
     lastRoll = dice;
     if(gamePlays){
@@ -90,6 +84,7 @@ document.querySelector('.btn--hold').addEventListener('click', () => {
 document.querySelector('.btn--new').addEventListener('click', () => {
     init();
     document.querySelector('.btn--field').style.display = 'block';
+    document.querySelector('.btn--field').value = '';
     document.querySelector('.btn--addScore').style.display = 'block';
 
 });
@@ -103,4 +98,12 @@ nextPlayer = () => {
     document.querySelector('.player--0').classList.toggle('player--active');
     document.querySelector('.player--1').classList.toggle('player--active');
     }
+}
+
+maxScoreFormat = (score) => {
+    var text = "First to " + score + ' wins!';
+    document.querySelector('.btn--field').style.display = 'none';
+    document.querySelector('.btn--addScore').style.display = 'none';
+    document.querySelectorAll('.btn--field')[1].style.display = 'block';
+    document.getElementById('paragraph').innerHTML = text;
 }
